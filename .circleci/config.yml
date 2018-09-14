@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Set the vars
+          command: |
+            export VAR1="var1value"
+            echo "export VAR2='var2value'" >> $BASH_ENV
+            echo "export VAR3='$VAR1'" >> $BASH_ENV
+      - run:
+          name: Check the vars
+          command: |
+            echo "var1=$VAR1"
+            echo "var2=$VAR2"
+            echo "var3=$VAR3"
+            source $BASH_ENV
+            echo "var1=$VAR1"
+            echo "var2=$VAR2"
+            echo "var3=$VAR3"
